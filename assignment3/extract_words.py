@@ -47,7 +47,7 @@ def gen_files(wordlist):
             frequency_num[freq] = 1
     freq_list = [(freq, count) for freq, count in frequency_num.items()] # makes list of tuples of (frequency, count of words)
     freq_list.sort(reverse=False, key=lambda x: x[0]) # sort by frequency
-    with open("wordfrequency", "w") as f:
+    with open("wordfrequency.txt", "w") as f:
         for freq, count in freq_list:
             f.write(f"{freq}:{count}\n")
 
