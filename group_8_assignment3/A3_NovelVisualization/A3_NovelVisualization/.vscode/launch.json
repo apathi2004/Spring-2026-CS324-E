@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "C#: Assignment3 Debug",
+        "name": "C#: A3_NovelVisualization Debug",
         "type": "dotnet",
         "request": "launch",
-        "projectPath": "${workspaceFolder}/Assignment3.csproj"
+        "projectPath": "${workspaceFolder}/A3_NovelVisualization.csproj"
       }
     ],
   }
