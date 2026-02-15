@@ -58,7 +58,7 @@ namespace group_8_assignment4
                 new Color(0, 100, 200),
                 new Color(30, 30, 30),
                 new Color(80, 80, 80),
-                "red"
+                "orange"
             );
             rocket2.SetVelocity(new Vector2(1.5f, 0));
             rocket2.Initialize(GraphicsDevice, view, projection);
@@ -100,8 +100,6 @@ namespace group_8_assignment4
 
             spriteBatch.Begin();
 
-            DrawStars();
-
             foreach (var rocket in rockets)
             {
                 rocket.Display(spriteBatch);
@@ -112,23 +110,6 @@ namespace group_8_assignment4
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        private void DrawStars()
-        {
-            Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.White });
-
-            System.Random random = new System.Random(42);
-
-            for (int i = 0; i < 50; i++)
-            {
-                int x = random.Next(0, screenWidth);
-                int y = random.Next(0, screenHeight);
-                int size = random.Next(1, 3);
-
-                spriteBatch.Draw(pixel, new Rectangle(x, y, size, size), Color.White);
-            }
         }
 
         private void DrawUI()
