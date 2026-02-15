@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace RocketAnimation
+namespace group_8_assignment4
 {
     public class Game1 : Game
     {

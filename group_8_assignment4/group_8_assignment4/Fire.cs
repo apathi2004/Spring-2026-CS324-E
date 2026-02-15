@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace RocketAnimation
+namespace group_8_assignment4
 {
     public class Fire
     {

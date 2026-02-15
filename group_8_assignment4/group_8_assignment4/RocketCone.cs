@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RocketAnimation
+namespace group_8_assignment4
 {
     public class RocketCone
     {
