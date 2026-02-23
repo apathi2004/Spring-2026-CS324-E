@@ -34,7 +34,7 @@ namespace group_8_assignment4
 
         public void Display(SpriteBatch spriteBatch, Vector2 position)
         {
-            cone.Display(spriteBatch.GraphicsDevice, spriteBatch, position);
+            cone.Display(spriteBatch.GraphicsDevice, position);
 
             Vector2 bodyPosition = new Vector2(
                 position.X - width / 2,

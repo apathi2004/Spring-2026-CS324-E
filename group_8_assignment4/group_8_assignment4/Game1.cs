@@ -60,7 +60,7 @@ namespace group_8_assignment4
                 new Color(80, 80, 80),
                 "red"
             );
-            rocket2.SetVelocity(new Vector2(0, -2));
+            rocket2.SetVelocity(new Vector2(0, -4));
             rocket2.Initialize(GraphicsDevice, view, projection);
             rockets.Add(rocket2);
         }
@@ -68,15 +68,7 @@ namespace group_8_assignment4
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            try
-            {
-                font = Content.Load<SpriteFont>("Font");
-            }
-            catch
-            {
-                font = null;
-            }
+            font = Content.Load<SpriteFont>("fonts/SourceSansPro-Black");
         }
 
         protected override void Update(GameTime gameTime)
@@ -104,17 +96,15 @@ namespace group_8_assignment4
                 rocket.Display(spriteBatch);
             }
 
-            DrawUI();
+            DrawUI(spriteBatch);
 
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        private void DrawUI()
+        private void DrawUI(SpriteBatch spriteBatch)
         {
-            if (font == null) return;
-
             string title = "Hierarchical Rocket Animation";
             Vector2 titleSize = font.MeasureString(title);
             Vector2 titlePosition = new Vector2(screenWidth / 2f - titleSize.X / 2, 20);
