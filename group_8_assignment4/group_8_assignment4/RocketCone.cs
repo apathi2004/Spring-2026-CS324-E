@@ -30,48 +30,47 @@ namespace group_8_assignment4
             };
         }
 
-        public void Display(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Vector2 position)
+        public void Display(GraphicsDevice graphicsDevice, Vector2 position)
         {
             Vector2 top = new Vector2(position.X, position.Y);
             Vector2 bottomLeft = new Vector2(position.X - width / 2, position.Y + height);
             Vector2 bottomRight = new Vector2(position.X + width / 2, position.Y + height);
 
-            DrawTriangle(spriteBatch, top, bottomLeft, bottomRight, color);
-            
-            DrawLine(spriteBatch, top, bottomLeft, Color.Black, 2);
-            DrawLine(spriteBatch, bottomLeft, bottomRight, Color.Black, 2);
-            DrawLine(spriteBatch, bottomRight, top, Color.Black, 2);
+            VertexPositionColor[] vertices =
+            {
+                new VertexPositionColor(new Vector3(top, 0), color),
+                new VertexPositionColor(new Vector3(bottomLeft, 0), color),
+                new VertexPositionColor(new Vector3(bottomRight, 0), color)
+            };
+
+            graphicsDevice.RasterizerState = RasterizerState.CullNone;
+            graphicsDevice.DepthStencilState = DepthStencilState.None;
+
+            foreach (var pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                graphicsDevice.DrawUserPrimitives(
+                    PrimitiveType.TriangleList,
+                    vertices,
+                    0,
+                    1
+                );
+            }
         }
-
-        private void DrawTriangle(SpriteBatch spriteBatch, Vector2 p1, Vector2 p2, Vector2 p3, Color color)
+        
+        private void DrawEdge(GraphicsDevice graphicsDevice, Vector2 a, Vector2 b)
         {
-            Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.White });
+            VertexPositionColor[] line =
+            {
+                new VertexPositionColor(new Vector3(a,0), Color.Black),
+                new VertexPositionColor(new Vector3(b,0), Color.Black)
+            };
 
-            DrawThickLine(spriteBatch, pixel, p1, p2, color, width);
-            DrawThickLine(spriteBatch, pixel, p2, p3, color, width);
-            DrawThickLine(spriteBatch, pixel, p3, p1, color, width);
-        }
-
-        private void DrawLine(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Color color, float thickness)
-        {
-            Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.White });
-
-            float angle = (float)System.Math.Atan2(end.Y - start.Y, end.X - start.X);
-            float length = Vector2.Distance(start, end);
-
-            spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, 
-                new Vector2(length, thickness), SpriteEffects.None, 0);
-        }
-
-        private void DrawThickLine(SpriteBatch spriteBatch, Texture2D pixel, Vector2 start, Vector2 end, Color color, float thickness)
-        {
-            float angle = (float)System.Math.Atan2(end.Y - start.Y, end.X - start.X);
-            float length = Vector2.Distance(start, end);
-
-            spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero,
-                new Vector2(length, thickness), SpriteEffects.None, 0);
+            foreach (var pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                graphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, line, 0, 1);
+            }
         }
     }
 }
