@@ -12,6 +12,8 @@ namespace group_8_assignment4
 
         private int screenWidth = 800;
         private int screenHeight = 600;
+        private Texture2D window;
+        private Texture2D alien;
 
         private List<Rocket> rockets;
 
@@ -32,9 +34,6 @@ namespace group_8_assignment4
         protected override void Initialize()
         {
             base.Initialize();
-
-            rockets = new List<Rocket>();
-            CreateRockets();
         }
 
         private void CreateRockets()
@@ -47,6 +46,9 @@ namespace group_8_assignment4
                 new Color(200, 0, 0),
                 Color.White,
                 new Color(128, 128, 128),
+                window,
+                alien,
+                Color.Green,
                 "orange"
             );
             rocket1.SetVelocity(new Vector2(0, -1.5f));
@@ -58,6 +60,9 @@ namespace group_8_assignment4
                 new Color(0, 100, 200),
                 new Color(30, 30, 30),
                 new Color(80, 80, 80),
+                window,
+                alien,
+                Color.Blue,
                 "red"
             );
             rocket2.SetVelocity(new Vector2(0, -4));
@@ -69,6 +74,11 @@ namespace group_8_assignment4
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("fonts/SourceSansPro-Black");
+            window = Content.Load<Texture2D>("img/window");
+            alien = Content.Load<Texture2D>("img/alien");
+            
+            rockets = new List<Rocket>();
+            CreateRockets();
         }
 
         protected override void Update(GameTime gameTime)

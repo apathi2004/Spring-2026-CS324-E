@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace group_8_assignment4
@@ -20,7 +21,7 @@ namespace group_8_assignment4
         public Vector2 Position => position;
         public Vector2 Velocity => velocity;
 
-        public Rocket(Vector2 startPosition, Color bodyColor, Color coneColor, Color finColor, string fireScheme = "orange")
+        public Rocket(Vector2 startPosition, Color bodyColor, Color coneColor, Color finColor, Texture2D window, Texture2D alien, Color aliencolor, string fireScheme = "orange")
         {
             position = startPosition;
             velocity = new Vector2(0, 2);
@@ -28,7 +29,7 @@ namespace group_8_assignment4
             bodyWidth = 40;
             bodyHeight = 100;
 
-            body = new RocketBody(bodyWidth, bodyHeight, bodyColor, coneColor);
+            body = new RocketBody(bodyWidth, bodyHeight, bodyColor, coneColor, window, alien, aliencolor);
             fins = new RocketFins(25, 40, finColor, 2);
             fire = new Fire(bodyWidth * 0.8f, 60, fireScheme);
 
@@ -46,7 +47,6 @@ namespace group_8_assignment4
         {
             position += velocity;
             float totalHeight = body.Height + body.ConeHeight + fire.CurrentHeight;
-            //float rocketBottom = position.Y - totalHeight;
                 
             if (position.Y > screenHeight)
                 position.Y = -totalHeight;
