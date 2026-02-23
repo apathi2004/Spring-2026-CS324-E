@@ -49,7 +49,7 @@ namespace group_8_assignment4
                 new Color(128, 128, 128),
                 "orange"
             );
-            rocket1.SetVelocity(new Vector2(2, 0));
+            rocket1.SetVelocity(new Vector2(0, -1.5f));
             rocket1.Initialize(GraphicsDevice, view, projection);
             rockets.Add(rocket1);
 
@@ -58,9 +58,9 @@ namespace group_8_assignment4
                 new Color(0, 100, 200),
                 new Color(30, 30, 30),
                 new Color(80, 80, 80),
-                "orange"
+                "red"
             );
-            rocket2.SetVelocity(new Vector2(1.5f, 0));
+            rocket2.SetVelocity(new Vector2(0, -2));
             rocket2.Initialize(GraphicsDevice, view, projection);
             rockets.Add(rocket2);
         }
@@ -87,7 +87,7 @@ namespace group_8_assignment4
 
             foreach (var rocket in rockets)
             {
-                rocket.Update(gameTime, screenWidth, screenHeight);
+                rocket.Update(screenWidth, screenHeight);
                 rocket.Animate();
             }
 
@@ -97,7 +97,6 @@ namespace group_8_assignment4
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(backgroundColor);
-
             spriteBatch.Begin();
 
             foreach (var rocket in rockets)
@@ -118,7 +117,7 @@ namespace group_8_assignment4
 
             string title = "Hierarchical Rocket Animation";
             Vector2 titleSize = font.MeasureString(title);
-            Vector2 titlePosition = new Vector2(screenWidth / 2 - titleSize.X / 2, 20);
+            Vector2 titlePosition = new Vector2(screenWidth / 2f - titleSize.X / 2, 20);
             spriteBatch.DrawString(font, title, titlePosition, Color.White);
 
             string[] instructions = new string[]

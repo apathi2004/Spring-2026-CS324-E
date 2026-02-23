@@ -1,26 +1,33 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace group_8_assignment4
 {
     public class Fire
     {
+        public float CurrentHeight;
+        
         private float width;
         private float maxHeight;
-        private float animationTime;
-        private float animationSpeed;
+        private float theta;
         private Color fireColor;
         private Texture2D pixel;
+        private float animationSpeed;
 
-        public Fire(float width, float maxHeight, string colorScheme = "orange")
+        public Fire(float width, float maxHeight, string colorScheme)
         {
             this.width = width;
             this.maxHeight = maxHeight;
-            this.animationTime = 0;
-            this.animationSpeed = 0.05f;
-
-            fireColor = new Color(255, 140, 0);
+            this.CurrentHeight = maxHeight;
+            this.theta = 0f;
+            this.animationSpeed = 0.1f;
+            
+            if (colorScheme == "orange")
+                fireColor = new Color(255, 140, 0);
+            if (colorScheme == "red")
+                fireColor = new Color(255, 42, 4);
         }
 
         public void Initialize(GraphicsDevice graphicsDevice)
@@ -29,26 +36,25 @@ namespace group_8_assignment4
             pixel.SetData(new[] { Color.White });
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
+            theta += animationSpeed;
         }
 
-        public float Animate()
+        public void Animate()
         {
-            return 1.0f;
+            CurrentHeight = maxHeight - 10 * (float)Math.Sin(theta);
         }
 
         public void Display(SpriteBatch spriteBatch, Vector2 position)
         {
-            float scale = Animate();
-            float currentHeight = maxHeight * scale;
 
             int numLayers = 2;
 
             for (int i = 0; i < numLayers; i++)
             {
                 float layerScale = 1.0f - (i * 0.15f);
-                float layerHeight = currentHeight * layerScale;
+                float layerHeight = CurrentHeight * layerScale;
                 float layerWidth = width * layerScale;
                 
                 Rectangle fireRect = new Rectangle(

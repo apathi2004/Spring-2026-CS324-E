@@ -23,7 +23,7 @@ namespace group_8_assignment4
         public Rocket(Vector2 startPosition, Color bodyColor, Color coneColor, Color finColor, string fireScheme = "orange")
         {
             position = startPosition;
-            velocity = new Vector2(2, 0);
+            velocity = new Vector2(0, 2);
 
             bodyWidth = 40;
             bodyHeight = 100;
@@ -42,16 +42,18 @@ namespace group_8_assignment4
             fire.Initialize(graphicsDevice);
         }
 
-        public void Update(GameTime gameTime, int screenWidth, int screenHeight)
+        public void Update(int screenWidth, int screenHeight)
         {
             position += velocity;
+            float totalHeight = body.Height + body.ConeHeight + fire.CurrentHeight;
+            //float rocketBottom = position.Y - totalHeight;
+                
+            if (position.Y > screenHeight)
+                position.Y = -totalHeight;
+            if (position.Y < 0)
+                position.Y = screenHeight;
 
-            if (position.X > screenWidth + 50)
-                position.X = -50;
-            if (position.X < -50)
-                position.X = screenWidth + 50;
-
-            fire.Update(gameTime);
+            fire.Update();
         }
 
         public void Animate()
