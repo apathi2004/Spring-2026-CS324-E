@@ -22,6 +22,6 @@ public class Snake
         Color = color;
         TravelSpeed = travelSpeed;
         TravelDirection = travelDirection;
-        UndulateSpeed = undulateSpeed;
+        UndulateSpeed = undulateSpeed; 
     }
 }

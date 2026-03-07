@@ -10,4 +10,6 @@ public class Head
     public Model Eye1;
     public Model Eye2;
     public Tongue Tongue;
+    
+    //head of snake doesn't have to undulate but do need to do a lot of model work to get the eyes and tongue working
 }

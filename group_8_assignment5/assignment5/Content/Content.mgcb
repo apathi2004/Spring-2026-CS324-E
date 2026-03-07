@@ -14,7 +14,7 @@
 #---------------------------------- Content ---------------------------------#
 
 #begin models/Sphere.obj
-/importer:fbximporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
