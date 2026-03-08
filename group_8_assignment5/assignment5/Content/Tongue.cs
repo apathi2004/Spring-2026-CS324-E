@@ -18,24 +18,29 @@ public class Tongue
 
     private void BuildTongue()
     {
-        Vector3 base1 = _headPosition + new Vector3(-0.05f, 0, -_headRadius);
-        Vector3 base2 = _headPosition + new Vector3(0.05f, 0, -_headRadius);
-
-        Vector3 mid1 = _headPosition + new Vector3(-0.04f, 0, -_headRadius - 0.3f);
-        Vector3 mid2 = _headPosition + new Vector3(0.04f, 0, -_headRadius - 0.3f);
-
-        Vector3 fork1 = _headPosition + new Vector3(-0.04f, 0f, -_headRadius - 0.5f);
-        Vector3 fork2 = _headPosition + new Vector3(0.04f, 0f, -_headRadius - 0.5f);
-
-
-        Vector3 leftTip1 = _headPosition + new Vector3(-0.15f, 0f, -_headRadius - 0.8f);
-        Vector3 leftTip2 = _headPosition + new Vector3(-0.07f, 0f, -_headRadius - 0.8f);
-
-
-        Vector3 rightTip1 = _headPosition + new Vector3(0.07f, 0f, -_headRadius - 0.8f);
-        Vector3 rightTip2 = _headPosition + new Vector3(0.15f, 0f, -_headRadius - 0.8f);
-
         Color tongueColor = Color.Red;
+        
+        float stemWidth  = _headRadius * 0.2f;
+        float stemLength = _headRadius * 1.25f;
+        float forkLength = _headRadius * 2.0f;
+        float tineSpread = _headRadius * 0.6f;
+        float tineLength = _headRadius * 3.3f;
+        float tineInner  = _headRadius * 0.3f;
+
+        Vector3 base1  = _headPosition + new Vector3(-stemWidth,  0, -_headRadius);
+        Vector3 base2  = _headPosition + new Vector3( stemWidth,  0, -_headRadius);
+
+        Vector3 mid1   = _headPosition + new Vector3(-stemWidth  * 0.8f, 0, -_headRadius - stemLength);
+        Vector3 mid2   = _headPosition + new Vector3( stemWidth  * 0.8f, 0, -_headRadius - stemLength);
+
+        Vector3 fork1  = _headPosition + new Vector3(-stemWidth  * 0.8f, 0, -_headRadius - forkLength);
+        Vector3 fork2  = _headPosition + new Vector3( stemWidth  * 0.8f, 0, -_headRadius - forkLength);
+
+        Vector3 leftTip1  = _headPosition + new Vector3(-tineSpread, 0, -_headRadius - tineLength);
+        Vector3 leftTip2  = _headPosition + new Vector3(-tineInner,  0, -_headRadius - tineLength);
+
+        Vector3 rightTip1 = _headPosition + new Vector3( tineInner,  0, -_headRadius - tineLength);
+        Vector3 rightTip2 = _headPosition + new Vector3( tineSpread, 0, -_headRadius - tineLength);
 
         _vertices = new VertexPositionColor[]
         {

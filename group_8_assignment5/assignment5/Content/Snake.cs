@@ -18,7 +18,7 @@ public class Snake
     public Snake(Model model, int numSegments, Color color)//, Vector2 travelDirection, float travelSpeed, float undulateSpeed)
     {
         //Segments = new BodySegment[numSegments];
-        Head = new Head(0.01f, model, color);
+        Head = new Head(0.03f, model, color);
         Color = color;
         // TravelSpeed = travelSpeed;
         // TravelDirection = travelDirection;
