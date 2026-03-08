@@ -57,8 +57,8 @@ public class Head
     public void Draw(GraphicsDevice graphicsDevice, BasicEffect basicEffect)
     {
         DrawPart(HeadModel, HeadPosition, basicEffect, Scale, Color);
-        DrawPart(Eye1Model, Eye1Position, basicEffect, Scale * 0.1f, Color.Black);
-        DrawPart(Eye2Model, Eye2Position, basicEffect, Scale * 0.1f, Color.Black);
+        DrawPart(Eye1Model, Eye1Position, basicEffect, Scale * 0.6f, Color.Black);
+        DrawPart(Eye2Model, Eye2Position, basicEffect, Scale * 0.6f, Color.Black);
         Tongue.Draw(graphicsDevice, basicEffect);
     }
 

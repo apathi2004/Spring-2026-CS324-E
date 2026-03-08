@@ -22,25 +22,23 @@ public class BodySegment
         Color = color;
         SegmentPosition = startPosition;
         UndulateSpeed = 2.0f;
-        Amplitude = scale * 5f;
+        Amplitude = scale * 2f;
         _phaseOffset = phaseOffset;
     }
 
     public void Update(GameTime gameTime, Vector3 targetPosition)
     {
         float elapsed = (float)gameTime.TotalGameTime.TotalSeconds;
-
-        // Sine-based vertical undulation with phase offset per segment
         float undulateY = Amplitude * (float)Math.Sin(elapsed * UndulateSpeed + _phaseOffset);
 
-        Vector3 desiredPosition = new Vector3(
-            targetPosition.X,
-            targetPosition.Y + undulateY,
-            targetPosition.Z
-        );
+        // Place segment exactly behind the target at a fixed distance
+        Vector3 direction = SegmentPosition - targetPosition;
+        if (direction.Length() > 0)
+            direction.Normalize();
 
-        // Lerp toward the target so each segment smoothly follows the one ahead
-        SegmentPosition = Vector3.Lerp(SegmentPosition, desiredPosition, 0.15f);
+        float desiredDistance = Scale * 24.24f * 0.5f;
+        SegmentPosition = targetPosition + direction * desiredDistance;
+        SegmentPosition.Y = targetPosition.Y + undulateY;
     }
 
     public void Draw(GraphicsDevice graphicsDevice, BasicEffect basicEffect)
