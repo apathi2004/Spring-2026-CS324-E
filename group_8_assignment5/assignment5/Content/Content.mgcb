@@ -30,5 +30,5 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:sphere.obj
+/build:Sphere.obj
 

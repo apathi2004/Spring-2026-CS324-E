@@ -30,7 +30,7 @@ public class Head
         HeadModel = model;
         HeadPosition = new Vector3(0, ScaledRadius, 0);
 
-        float eyeRadius = ScaledRadius;  
+        float eyeRadius = ScaledRadius * 1.0f;  
         float eyeScale = Scale * 0.1f;
         float eyeScaledRadius = eyeScale * 24.24f;
 
@@ -41,14 +41,14 @@ public class Head
         Eye1Position = HeadPosition + new Vector3(
             eyeRadius * (float)Math.Sin(angleSide), 
             eyeRadius * (float)Math.Sin(angleUp),
-            -eyeRadius * (float)Math.Cos(angleSide) 
+            -eyeRadius * (float)Math.Cos(angleSide) * 1.2f
         );
 
         Eye2Model = model;
         Eye2Position = HeadPosition + new Vector3(
             -eyeRadius * (float)Math.Sin(angleSide), 
             eyeRadius * (float)Math.Sin(angleUp), 
-            -eyeRadius * (float)Math.Cos(angleSide) 
+            -eyeRadius * (float)Math.Cos(angleSide) * 1.2f
         );
 
         Tongue = new Tongue(HeadPosition, ScaledRadius);
@@ -77,8 +77,8 @@ public class Head
                                Matrix.CreateTranslation(position) *
                                basicEffect.World;
                 
-                effect.DiffuseColor = color.ToVector3();
-                effect.EnableDefaultLighting();
+                //effect.DiffuseColor = color.ToVector3();
+                //effect.EnableDefaultLighting();
             }
             mesh.Draw();
         }

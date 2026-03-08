@@ -26,10 +26,10 @@ public class Snake
         TravelDirection = new Vector2(0, -1); // moving forward along Z
         UndulateSpeed = 2.0f;
 
-        Head = new Head(.06f, model, color);
+        Head = new Head(.02f, model, color);
         HeadPosition = Head.HeadPosition;
 
-        float segmentScale = 0.03f * 3f; 
+        float segmentScale = 0.03f * 0.85f; 
         float segmentSpacing = segmentScale * 24.24f * 0.1f;
 
         Segments = new BodySegment[numSegments];
@@ -67,28 +67,7 @@ public class Snake
         Head.Draw(graphicsDevice, basicEffect);
         basicEffect.World = savedWorld;
 
-        // Draw lines between segments
-        basicEffect.LightingEnabled = false;
-        basicEffect.VertexColorEnabled = true;
-        for (int i = 0; i < Segments.Length; i++)
-        {
-            Vector3 from = i == 0 ? HeadPosition : Segments[i - 1].SegmentPosition;
-            Vector3 to = Segments[i].SegmentPosition;
-
-            VertexPositionColor[] line = new VertexPositionColor[]
-            {
-                new VertexPositionColor(from, Color.Green),
-                new VertexPositionColor(to, Color.Green)
-            };
-
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-                graphicsDevice.DrawUserPrimitives<VertexPositionColor>(
-                    PrimitiveType.LineList, line, 0, 1);
-            }
-        }
-
+        
         // Draw each body segment
         foreach (var segment in Segments)
         {

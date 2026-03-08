@@ -20,12 +20,12 @@ public class Tongue
     {
         Color tongueColor = Color.Red;
         
-        float stemWidth  = _headRadius * 0.05f;
-        float stemLength = _headRadius * .3f;
-        float forkLength = _headRadius * .5f;
-        float tineSpread = _headRadius * 0.15f;
-        float tineLength = _headRadius * .8f;
-        float tineInner  = _headRadius * 0.8f;
+        float stemWidth  = _headRadius * 0.1f;
+        float stemLength = _headRadius * .38f;
+        float forkLength = _headRadius * .50f;
+        float tineSpread = _headRadius * 0.28f;
+        float tineLength = _headRadius * .9f;
+        float tineInner  = _headRadius * 1f;
 
         Vector3 base1  = _headPosition + new Vector3(-stemWidth,  0, -_headRadius);
         Vector3 base2  = _headPosition + new Vector3( stemWidth,  0, -_headRadius);
