@@ -67,6 +67,8 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        _Snake.Update(gameTime); // <-- add this
+
         base.Update(gameTime);
     }
 
