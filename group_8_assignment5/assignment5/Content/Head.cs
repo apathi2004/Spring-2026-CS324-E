@@ -30,8 +30,8 @@ public class Head
         HeadModel = model;
         HeadPosition = new Vector3(0, ScaledRadius, 0);
 
-        float eyeRadius = ScaledRadius * 1.0f;  
-        float eyeScale = Scale * 0.1f;
+        float eyeRadius = ScaledRadius * .5f;  
+        float eyeScale = Scale * 0.4f;
         float eyeScaledRadius = eyeScale * 24.24f;
 
         float angleUp = MathHelper.ToRadians(30f); 
@@ -56,7 +56,7 @@ public class Head
 
     public void Draw(GraphicsDevice graphicsDevice, BasicEffect basicEffect)
     {
-        DrawPart(HeadModel, HeadPosition, basicEffect, Scale, Color);
+        DrawPart(HeadModel, HeadPosition, basicEffect, Scale, Color.Yellow);
         DrawPart(Eye1Model, Eye1Position, basicEffect, Scale * 0.6f, Color.Black);
         DrawPart(Eye2Model, Eye2Position, basicEffect, Scale * 0.6f, Color.Black);
         Tongue.Draw(graphicsDevice, basicEffect);
@@ -77,8 +77,8 @@ public class Head
                                Matrix.CreateTranslation(position) *
                                basicEffect.World;
                 
-                //effect.DiffuseColor = color.ToVector3();
-                //effect.EnableDefaultLighting();
+                effect.DiffuseColor = color.ToVector3();
+                effect.LightingEnabled = false; 
             }
             mesh.Draw();
         }

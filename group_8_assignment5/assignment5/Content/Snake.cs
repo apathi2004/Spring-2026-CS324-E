@@ -46,12 +46,16 @@ public class Snake
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _time += dt;
 
-        // Head traces a sine wave in X, moves forward along Z
-        float z = -_time * TravelSpeed;
+        float pathLength = 25f;   
+        float startZ = 10f;       
+
+        // looping motion
+        float z = startZ - (_time * TravelSpeed % pathLength);
         float x = _amplitude * (float)Math.Sin(_frequency * _time);
+
         HeadPosition = new Vector3(x, Head.ScaledRadius, z);
 
-        // Each segment follows the one ahead of it
+        
         for (int i = 0; i < Segments.Length; i++)
         {
             Vector3 target = i == 0 ? HeadPosition : Segments[i - 1].SegmentPosition;

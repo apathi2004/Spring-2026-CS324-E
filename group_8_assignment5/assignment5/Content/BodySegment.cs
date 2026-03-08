@@ -37,7 +37,10 @@ public class BodySegment
             direction.Normalize();
 
         float desiredDistance = Scale * 24.24f * 0.5f;
+
         SegmentPosition = targetPosition + direction * desiredDistance;
+
+        // add vertical undulation
         SegmentPosition.Y = targetPosition.Y + undulateY;
     }
 
@@ -52,17 +55,18 @@ public class BodySegment
             {
                 effect.View = basicEffect.View;
                 effect.Projection = basicEffect.Projection;
-                effect.World = transforms[mesh.ParentBone.Index] *
-                               Matrix.CreateScale(Scale) *
-                               Matrix.CreateTranslation(SegmentPosition) *
-                               basicEffect.World;
+
+                effect.World =
+                    transforms[mesh.ParentBone.Index] *
+                    Matrix.CreateScale(Scale) *
+                    Matrix.CreateTranslation(SegmentPosition);
 
                 effect.DiffuseColor = Color.ToVector3();
-                effect.EnableDefaultLighting();
+                effect.LightingEnabled = false;
             }
+
             mesh.Draw();
         }
     }
+
 }
-    // Will need to get each body segment to undulate up and down, can use sine to accomplish this but need
-    // to incorporate lerp somewhere in the process
