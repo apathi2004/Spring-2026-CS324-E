@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using assignment5.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,6 +13,9 @@ public class Game1 : Game
     private BasicEffect _basicEffect;
     private VertexPositionColor[] _land;
 
+    private Model _sphere;
+    private Snake _Snake;
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -23,7 +27,7 @@ public class Game1 : Game
     {
         _basicEffect = new BasicEffect(GraphicsDevice);
         _basicEffect.VertexColorEnabled = true;
-        
+
         float fieldOfView = MathHelper.PiOver4;
         float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
         _basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(
@@ -32,13 +36,13 @@ public class Game1 : Game
             1f,
             500f);
 
-        Vector3 eye = new Vector3(0f, 4f, 10f);
-        Vector3 target = new Vector3(0f, 0f, 0f);
+        Vector3 eye = new Vector3(0f, 2f, -10f);
+        Vector3 target = new Vector3(0f, 2f, 0f);
         Vector3 up = new Vector3(0f, 1f, 0f);
         _basicEffect.View = Matrix.CreateLookAt(eye, target, up);
-        
+
         _basicEffect.World = Matrix.Identity;
-        
+
         _basicEffect.VertexColorEnabled = true;
         base.Initialize();
     }
@@ -52,6 +56,9 @@ public class Game1 : Game
         _land[1] = new VertexPositionColor(new Vector3(5, 0, 5), Color.SandyBrown);
         _land[2] = new VertexPositionColor(new Vector3(-5, 0, -5), Color.SandyBrown);
         _land[3] = new VertexPositionColor(new Vector3(5, 0, -5), Color.SandyBrown);
+
+        _sphere = Content.Load<Model>("models/Sphere");
+        _Snake = new Snake(_sphere, 4, Color.Green);
     }
 
     protected override void Update(GameTime gameTime)
@@ -77,7 +84,31 @@ public class Game1 : Game
                 0,
                 2);
         }
-
+        
+        _Snake.Draw(GraphicsDevice, _basicEffect);
+        
         base.Draw(gameTime);
+    }
+
+    private void DrawMesh(Model m)
+    {
+        Matrix[] transforms = new Matrix[m.Bones.Count];
+        m.CopyAbsoluteBoneTransformsTo(transforms);
+        float scale = 0.008f;
+        float radius = 24.24f;
+        float scaledRadius = radius * scale;
+        foreach (ModelMesh mesh in m.Meshes)
+        {
+            foreach (BasicEffect effect in mesh.Effects)
+            {
+                effect.View = _basicEffect.View;
+                effect.Projection = _basicEffect.Projection;
+                effect.World = transforms[mesh.ParentBone.Index]  * 
+                               Matrix.CreateScale(scale) *
+                               Matrix.CreateTranslation(new Vector3(0, scaledRadius, 0)) 
+                               * _basicEffect.World;
+            }
+            mesh.Draw();
+        }
     }
 }

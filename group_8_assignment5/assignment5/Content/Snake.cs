@@ -15,13 +15,18 @@ public class Snake
     public float UndulateSpeed;
     public Color Color;
     
-    public Snake(int numSegments, Color color, Vector2 travelDirection, float travelSpeed, float undulateSpeed)
+    public Snake(Model model, int numSegments, Color color)//, Vector2 travelDirection, float travelSpeed, float undulateSpeed)
     {
-        Segments = new BodySegment[numSegments];
-        Head = new Head();
+        //Segments = new BodySegment[numSegments];
+        Head = new Head(0.01f, model, color);
         Color = color;
-        TravelSpeed = travelSpeed;
-        TravelDirection = travelDirection;
-        UndulateSpeed = undulateSpeed; 
+        // TravelSpeed = travelSpeed;
+        // TravelDirection = travelDirection;
+        // UndulateSpeed = undulateSpeed; 
+    }
+
+    public void Draw(GraphicsDevice graphicsDevice, BasicEffect basicEffect)
+    {
+        Head.Draw(graphicsDevice, basicEffect);
     }
 }
