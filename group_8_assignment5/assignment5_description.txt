@@ -1,0 +1,39 @@
+Assignment 5 Description – 3D Animation
+
+Overview of the Animation
+
+Our group created a 3D animated scene of a snake moving forward across a ground plane. The snake is constructed from multiple spherical segments that follow the motion of the head. As the head moves through the scene, the body segments follow in sequence, creating a wave-like motion that resembles how a snake moves. The animation runs continuously and loops indefinitely.
+
+The head of the snake moves forward along the scene while slightly oscillating from side to side. This motion drives the movement of the rest of the snake’s body. Each body segment follows the position of the segment ahead of it, creating a chained animation that demonstrates hierarchical transformations.
+
+Technical Implementation
+
+The project was built using MonoGame and structured around several classes to represent the animated objects in the scene.
+
+The main game logic is handled in Game1.cs, which sets up the camera, initializes the scene, and updates the animation during each frame of the game loop. This file is responsible for calling the update and draw methods for the snake and its components.
+
+The Snake class acts as a container for the snake’s components and coordinates how the head and body segments move together.
+
+The Head class controls the position and motion of the snake’s head. The head moves forward across the scene while using a sine-based offset to create a natural side-to-side motion.
+
+The BodySegment class represents the individual segments that make up the body of the snake. Each segment follows the position of the segment ahead of it with a delay, creating the appearance of a continuous body movement.
+
+The Tongue class represents the snake’s tongue and is attached to the head. Because it is hierarchically connected to the head object, its transformations are applied relative to the head’s position and orientation.
+
+Linear interpolation (lerp) techniques are used to smoothly transition positions over time. This prevents sudden jumps in motion and allows the animation to appear fluid and continuous.
+
+Challenges Encountered
+
+One challenge was determining the correct spacing between body segments so that they appeared connected while still moving smoothly. The radius of the sphere model had to be considered when calculating offsets between segments.
+
+Another challenge was ensuring that hierarchical transformations behaved correctly so that the tongue remained attached to the head while still animating independently.
+
+Group Contributions
+
+Advaiith implemented the Head and Tongue classes and worked on loading and testing the sphere mesh used for the snake segments.
+
+Steven contributed to the design and implementation of the body segments and helped structure how the segments follow the head using positional offsets and interpolation.
+
+Harris reviewed the code, made adjustments to ensure components integrated correctly, and assisted with refining the overall structure of the program. Harris also prepared the project documentation and description files.
+
+Overall, the project demonstrates hierarchical animation, object transformations, and interpolated movement within a simple 3D scene using MonoGame.
