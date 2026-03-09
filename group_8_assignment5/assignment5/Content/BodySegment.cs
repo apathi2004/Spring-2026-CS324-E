@@ -29,19 +29,25 @@ public class BodySegment
     public void Update(GameTime gameTime, Vector3 targetPosition)
     {
         float elapsed = (float)gameTime.TotalGameTime.TotalSeconds;
+        float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        // Calculate undulation offset
         float undulateY = Amplitude * (float)Math.Sin(elapsed * UndulateSpeed + _phaseOffset);
 
-        // Place segment exactly behind the target at a fixed distance
+        // Calculate the desired position behind the target at a fixed distance
         Vector3 direction = SegmentPosition - targetPosition;
         if (direction.Length() > 0)
             direction.Normalize();
 
         float desiredDistance = Scale * 24.24f * 0.5f;
+        Vector3 desiredPosition = targetPosition + direction * desiredDistance;
 
-        SegmentPosition = targetPosition + direction * desiredDistance;
+        // Apply vertical undulation to desired position
+        desiredPosition.Y = targetPosition.Y + undulateY;
 
-        // add vertical undulation
-        SegmentPosition.Y = targetPosition.Y + undulateY;
+        // Lerp from current position toward desired position for smooth following
+        float lerpSpeed = 10.0f;
+        SegmentPosition = Vector3.Lerp(desiredPosition, SegmentPosition, lerpSpeed * deltaTime);
     }
 
     public void Draw(GraphicsDevice graphicsDevice, BasicEffect basicEffect)
@@ -68,5 +74,4 @@ public class BodySegment
             mesh.Draw();
         }
     }
-
 }
