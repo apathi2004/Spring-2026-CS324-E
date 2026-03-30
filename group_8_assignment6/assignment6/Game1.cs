@@ -7,19 +7,21 @@ namespace assignment6;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
+    private SpriteBatch           _spriteBatch;
+    private Texture2D             _pixel;
+    private Pendulum              _pendulum;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
+        _graphics.PreferredBackBufferWidth  = 900;
+        _graphics.PreferredBackBufferHeight = 600;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
         base.Initialize();
     }
 
@@ -27,25 +29,38 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // TODO: use this.Content to load your game content here
+        _pixel = new Texture2D(GraphicsDevice, 1, 1);
+        _pixel.SetData(new[] { Color.White });
+
+        _pendulum = new Pendulum(
+            _graphics.PreferredBackBufferWidth,
+            _graphics.PreferredBackBufferHeight,
+            _pixel);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
+        var kb = Keyboard.GetState();
+
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+            || kb.IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        if (kb.IsKeyDown(Keys.R))
+            _pendulum.Reset();
+
+        _pendulum.Update();
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(new Color(18, 18, 24));
 
-        // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        _pendulum.Draw(_spriteBatch);
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
