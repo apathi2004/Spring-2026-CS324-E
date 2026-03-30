@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace assignment6
 {
-    /// <summary>
-    /// Advaiith's class.
-    /// The two strings that suspend one cradle ball from the frame.
+  
     ///
     /// Forces / laws modelled:
     ///   - Hooke's Law string tension (via ChainLink.TensionForce).

@@ -5,24 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace assignment6
 {
-    /// <summary>
-    /// Top-level orchestrator.
-    /// Owns the BlockTower, handles mouse drag, and draws the frame + HUD.
-    ///
-    /// Physics summary of the full system each frame:
-    ///
-    ///   Forces on each ball:
-    ///     Fg  = m·g            (gravity, downward)
-    ///     Ft  = k·(|r|-L)·r̂   (Hooke's Law string tension, toward anchor)
-    ///     Fd  = -b·v           (air resistance, opposes velocity)
-    ///     Fn  = impulse/dt     (normal contact force, Newton's 3rd Law)
-    ///
-    ///   Collision:
-    ///     J = m_a·m_b·(1+e)·Δv / (m_a+m_b)    e = 0.98  (nearly elastic)
-    ///     Δp_a = -J,  Δp_b = +J                (conservation of momentum)
-    ///     ΔKE   = J²·(m_a+m_b)/(2·m_a·m_b) · (1-e²)  ≥ 0 (energy dissipated)
-    ///
-    ///   Controls: click+drag any ball to pull back, release to swing.
+
     ///             Press R to reset.
     /// </summary>
     public class Pendulum
@@ -49,7 +32,7 @@ namespace assignment6
             _dragIndex = -1;
         }
 
-        // ── update ────────────────────────────────────────────────────────────
+
         public void Update()
         {
             var mouse    = Mouse.GetState();

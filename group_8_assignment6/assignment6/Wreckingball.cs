@@ -4,26 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace assignment6
 {
-    /// <summary>
-    /// Steven's class.
-    /// One ball in the Newton's Cradle.
-    ///
-    /// Forces applied each frame (Newton's 2nd Law  F = ma):
-    ///   1. Gravity:          Fg = m * g  (downward)
-    ///   2. String tension:   Ft = Chain.TensionForce  (along string toward anchor)
-    ///   3. Air resistance:   Fd = -b * v  (opposes velocity, linear drag)
-    ///
-    /// Collision (Newton's 3rd Law + conservation of momentum + energy):
-    ///   When two balls touch, a 1-D impulse J is computed from the
-    ///   coefficient of restitution (e = 0.98) and applied equal-and-opposite
-    ///   to both balls, conserving momentum exactly and energy to within (1-e²).
-    ///
-    /// Angular approximation:
-    ///   The pendulum ODE  α = -(g/L) sin(θ)  is integrated with a semi-
-    ///   implicit Euler step, which preserves energy better than explicit Euler.
-    ///   String tension provides the centripetal component automatically through
-    ///   the constraint solver in Chain.
-    /// </summary>
+
+
     public class WreckingBall
     {
         // ── pendulum state ────────────────────────────────────────────────────
@@ -42,15 +24,10 @@ namespace assignment6
         public float AnchorY      { get; }
         public bool  IsDragged    { get; set; }
 
-        // ── physics constants ─────────────────────────────────────────────────
-
-        /// <summary>Gravitational acceleration in px/frame² (g ≈ 9.8 m/s², scaled).</summary>
+       
         private const float G = 0.45f;
 
-        /// <summary>
-        /// Linear drag coefficient b in  Fd = -b·v.
-        /// Models air resistance; small value so energy decays slowly.
-        /// </summary>
+    
         private const float AirDragB = 0.0018f;
 
         /// <summary>Coefficient of restitution for ball–ball collisions (nearly elastic).</summary>
@@ -68,16 +45,7 @@ namespace assignment6
             UpdatePosition();
         }
 
-        // ── update ────────────────────────────────────────────────────────────
-
-        /// <summary>
-        /// Integrates one physics tick using semi-implicit Euler.
-        ///
-        /// Net torque τ = -m·g·L·sin(θ)  →  α = τ/(m·L²) = -(g/L)·sin(θ)
-        ///
-        /// Air-resistance torque: τ_drag = -b·ω·L² (drag force × moment arm)
-        /// reduces to  α_drag = -(b/m)·ω
-        /// </summary>
+     
         public void Update()
         {
             if (IsDragged)
@@ -119,23 +87,10 @@ namespace assignment6
             UpdatePosition();
         }
 
-        // ── collision ─────────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Newton's 3rd Law + conservation of momentum + energy.
-        ///
-        /// 1-D impulse along the line of centres (X axis for cradle):
-        ///
-        ///   J = m_a·m_b·(1+e)·(v_a - v_b) / (m_a + m_b)
-        ///
-        /// Applied  +J/m_b  to ball b  and  -J/m_a  to ball a  (equal-and-opposite).
-        ///
-        /// Momentum check:  m_a·v_a + m_b·v_b  is identical before and after.
-        /// Energy check:    KE loss = J²·(m_a+m_b)/(2·m_a·m_b) · (1-e²)  ≥ 0.
-        /// </summary>
         public void ResolveCollision(WreckingBall other)
         {
-            // Tangential (X) velocity at ball centre (v = ω · L · cos θ)
+          
             float va = AngularVelocity       * StringLength       * MathF.Cos(Angle);
             float vb = other.AngularVelocity * other.StringLength * MathF.Cos(other.Angle);
 
@@ -151,7 +106,7 @@ namespace assignment6
             float newVa = va - J / ma;   // ball a loses momentum
             float newVb = vb + J / mb;   // ball b gains momentum  (equal & opposite)
 
-            // Convert linear Δv back to angular velocity  ω = v / (L·cos θ)
+      
             float cosA = MathF.Cos(Angle);
             float cosB = MathF.Cos(other.Angle);
             if (MathF.Abs(cosA) > 0.01f)

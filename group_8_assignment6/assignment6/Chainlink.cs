@@ -2,17 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace assignment6
 {
-    /// <summary>
-    /// Advaiith's class.
-    /// One string segment between the frame anchor and the ball.
-    ///
-    /// Forces modelled here:
-    ///   - String tension via Hooke's Law:  F = -k * (|delta| - restLength)
-    ///     applied along the string direction so the link always pulls back
-    ///     toward its rest length.
-    ///   - The constraint solver (SatisfyConstraint) enforces the inextensible
-    ///     limit — the string cannot stretch beyond RestLength.
-    /// </summary>
+   
     public class ChainLink
     {
         public Vector2 Position;
@@ -27,11 +17,7 @@ namespace assignment6
             RestLength = restLength;
         }
 
-        /// <summary>
-        /// Hooke's Law tension force this link exerts on its parent.
-        /// F = k * (extension) * direction_toward_child
-        /// Positive when string is stretched (pulls parent toward child).
-        /// </summary>
+       
         public Vector2 TensionForce(Vector2 parentPosition)
         {
             Vector2 delta     = Position - parentPosition;
@@ -45,12 +31,7 @@ namespace assignment6
             return direction * SpringK * extension;       // F = k·x  (Hooke's Law)
         }
 
-        /// <summary>
-        /// Hard inextensibility constraint — nudges the link so it is never
-        /// further than RestLength from <paramref name="parentPosition"/>.
-        /// This enforces the normal (reaction) force of the string on the ball:
-        /// the string can only pull, never push.
-        /// </summary>
+      
         public void SatisfyConstraint(Vector2 parentPosition)
         {
             Vector2 delta = Position - parentPosition;
