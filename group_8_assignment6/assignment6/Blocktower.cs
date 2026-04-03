@@ -4,18 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace assignment6
 {
-    /// <summary>
-    /// Harris's class.
-    /// Manages the row of WreckingBall objects and their Chain strings.
-    ///
-    /// Each frame it:
-    ///   1. Calls WreckingBall.Update() on every ball (gravity + air drag).
-    ///   2. Calls Chain.Update() to compute string tension (Hooke's Law)
-    ///      and enforce inextensibility (normal force).
-    ///   3. Calls WreckingBall.ResolveCollision() on adjacent pairs that overlap
-    ///      (momentum conservation + Newton's 3rd Law impulse).
-    ///   4. Records the normal force magnitude in the corresponding Block.
-    /// </summary>
+    
     public class BlockTower
     {
         public  List<WreckingBall> Balls   { get; } = new();
