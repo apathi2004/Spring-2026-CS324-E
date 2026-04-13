@@ -5,7 +5,7 @@
         <RollForward>Major</RollForward>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
-        <_Command>&quot;C:\Users\sjeng\.dotnet\tools\mgcb.exe&quot;</_Command>
+        <_Command>&quot;$(HOME)/.dotnet/tools/mgcb&quot;</_Command>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationManifest>app.manifest</ApplicationManifest>
