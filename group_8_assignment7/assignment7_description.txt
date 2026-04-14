@@ -1,0 +1,16 @@
+Assignment7 - Tetris
+
+For this assignment we created a simplified version of Tetris using publicly available assets. In this game the user uses the arrow keys to move and rotate randomly selected pieces so that a row can be filled and cleared before their block falls to the ground. In our game the player continues playing until they loose, by filling up all of their available space.
+
+The game is controllable using the left and right keys to move the block, rotate with the up key, and instant drop with `space`. The user can also pause the screen with `p`. If the user looses the game they can restart by pressing `r` as the game over screen tells them. Whenever the player wishes to exit the game they can either close the window, or press `esc` to quit the program.
+
+It was very hard to implement everything we wanted, for instance in the assets the blocks did not have any clear way to show partial blocks, when row clears would happen, or for collisions, and spacing was a problem. We had to remake some classes like the `Block` and `Timer` classes to get the game to fully work correctly. 
+
+The asset also came with a clear animation that we added to the final project and helps bring a nice touch to the assignment.
+
+
+Steven found the assets and designed the class hierarchies.
+
+Advaiith figured out the main gameplay loop and did the documents.
+
+Harris did the keyboard inputs and pause screen.
