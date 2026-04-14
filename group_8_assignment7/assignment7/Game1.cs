@@ -16,7 +16,7 @@ public class Game1 : Game
     private Texture2D _border;
     private Texture2D _background;
 
-    // Each array holds the sprite frames for that block type
+    // One texture per block type using Tetromino_block1_X sprites
     private Texture2D[] _blockO;
     private Texture2D[] _blockI;
     private Texture2D[] _blockJ;
@@ -41,7 +41,7 @@ public class Game1 : Game
     private KeyboardState _prevKeys;
 
     private float _dasTimer = 0f;
-    private const float DasDelay = 0.15f;
+    private const float DasDelay  = 0.15f;
     private const float DasRepeat = 0.05f;
     private bool _dasActive = false;
     private Keys _dasKey = Keys.None;
@@ -83,55 +83,14 @@ public class Game1 : Game
         for (int i = 1; i <= _clean.CleanFrames.Length; i++)
             _clean.CleanFrames[i - 1] = Content.Load<Texture2D>("Assets/Fx_clean0" + i);
 
-        // Load block sprites using your actual asset names
-        // Each block type has 2 variants (1 and 2), each with up to 4 rotation frames
-        _blockO = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_block1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_O1_2"),
-        };
-        _blockI = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_I1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_I1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_I2_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_I2_2"),
-        };
-        _blockJ = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_J1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_J1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_J1_3"),
-            Content.Load<Texture2D>("Assets/Tetromino_J1_4"),
-        };
-        _blockL = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_L1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_L1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_L1_3"),
-            Content.Load<Texture2D>("Assets/Tetromino_L1_4"),
-        };
-        _blockS = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_S1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_S1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_S2_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_S2_2"),
-        };
-        _blockT = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_T1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_T1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_T1_3"),
-            Content.Load<Texture2D>("Assets/Tetromino_T1_4"),
-        };
-        _blockZ = new[]
-        {
-            Content.Load<Texture2D>("Assets/Tetromino_Z1_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_Z1_2"),
-            Content.Load<Texture2D>("Assets/Tetromino_Z2_1"),
-            Content.Load<Texture2D>("Assets/Tetromino_Z2_2"),
-        };
+        // Each block type gets its own colored block sprite (block1_1 through block1_7)
+        _blockO = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_1") };
+        _blockI = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_2") };
+        _blockJ = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_3") };
+        _blockL = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_4") };
+        _blockS = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_5") };
+        _blockT = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_6") };
+        _blockZ = new[] { Content.Load<Texture2D>("Assets/Tetromino_block1_7") };
 
         // Order must match BlockType enum: O, I, J, L, S, T, Z
         _allBlocks = new[] { _blockO, _blockI, _blockJ, _blockL, _blockS, _blockT, _blockZ };
@@ -202,7 +161,7 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
         _spriteBatch.Draw(_background, Vector2.Zero,
             new Rectangle(0, 0,
@@ -252,6 +211,8 @@ public class Game1 : Game
         base.Draw(gameTime);
     }
 
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
     private void DrawBoard()
     {
         for (int row = 0; row < Block.GridRows; row++)
@@ -264,8 +225,11 @@ public class Game1 : Game
                 if (tex == null) continue;
                 int px = Block.GridOffsetX + col * Block.CellSize;
                 int py = Block.GridOffsetY + row * Block.CellSize;
-                _spriteBatch.Draw(tex, new Vector2(px, py),
-                    new Rectangle(0, 0, Block.CellSize, Block.CellSize),
+                // Destination: scaled cell on screen
+                // Source: full 120x120 texture
+                _spriteBatch.Draw(tex,
+                    new Rectangle(px, py, Block.CellSize, Block.CellSize),
+                    new Rectangle(0, 0, Block.TextureSize, Block.TextureSize),
                     Color.White);
             }
         }
@@ -273,9 +237,9 @@ public class Game1 : Game
 
     private void SpawnBlock()
     {
-        var type    = _next.Pop();
+        var type     = _next.Pop();
         var textures = _allBlocks[(int)type];
-        _active     = new Block(type, textures);
+        _active      = new Block(type, textures);
 
         if (!_active.CanPlace(_active.GridX, _active.GridY, _active.Rotation, _board))
             _gameOver = true;

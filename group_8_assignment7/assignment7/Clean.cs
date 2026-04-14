@@ -13,7 +13,7 @@ namespace assignment7
 
         public bool IsAnimating { get; private set; } = false;
 
-        // Rows currently being cleared (grid row indices)
+      
         private List<int> _clearingRows = new();
 
         public Clean(int frameCount)
@@ -21,9 +21,7 @@ namespace assignment7
             CleanFrames = new Texture2D[frameCount];
         }
 
-        /// <summary>
-        /// Call when one or more full rows are detected. Triggers animation.
-        /// </summary>
+       
         public void StartClear(List<int> rows)
         {
             _clearingRows = rows;
@@ -32,9 +30,7 @@ namespace assignment7
             IsAnimating = rows.Count > 0;
         }
 
-        /// <summary>
-        /// Returns the rows that were just cleared when animation finishes, or null if still animating.
-        /// </summary>
+       
         public List<int> Update(GameTime gameTime)
         {
             if (!IsAnimating) return null;

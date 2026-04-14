@@ -12,7 +12,7 @@ namespace assignment7.Content
         public Texture2D[] BlockTextures { get; set; } = new Texture2D[7];
 
         // Position of the "NEXT" panel on screen (relative to border)
-        private const int PanelX = 400; // tweak to match your border layout
+        private const int PanelX = 400; 
         private const int PanelY = 80;
         private const int CellSize = Block.CellSize;
 

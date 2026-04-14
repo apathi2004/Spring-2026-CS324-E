@@ -5,6 +5,11 @@
         <RollForward>Major</RollForward>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
+    </PropertyGroup>
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+        <_Command>&quot;$(USERPROFILE)\.dotnet\tools\mgcb.exe&quot;</_Command>
+    </PropertyGroup>
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('OSX')) Or $([MSBuild]::IsOSPlatform('Linux'))">
         <_Command>&quot;$(HOME)/.dotnet/tools/mgcb&quot;</_Command>
     </PropertyGroup>
     <PropertyGroup>
